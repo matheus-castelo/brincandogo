@@ -1,4 +1,4 @@
-package structEvariaveis
+package main
 
 import "fmt"
 
