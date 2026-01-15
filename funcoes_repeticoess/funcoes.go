@@ -60,6 +60,8 @@ func main() {
 	outraFuncao := tempFuncao()
 	outraFuncao("oi", 4)
 
+	recebendoNparametros("matheus", "otavio", "jean")
+
 }
 
 func teste() (string, int) {
@@ -89,4 +91,14 @@ func tempFuncao () func(string,int){
 		println(valorString, valorInt)
 	}
 	return funcaoTeste
+}
+
+func recebendoNparametros(valoresString ...string) {
+    printandoStrings := func(stringsParaExibir ...string) {
+        for _, value := range stringsParaExibir {
+            println(value)
+        }
+    }
+	// Chamando a função interna
+    printandoStrings(valoresString...)
 }
