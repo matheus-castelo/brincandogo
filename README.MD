@@ -1,3 +1,4 @@
+OBS: Não estou usando a estrutura de pacotes formal do Go. Os códigos dos pacotes não estão com o nome correto - nome das pastas.
 ### Estrutura do diretório Go
 
 Go por padrão utiliza a pasta `~/go` com três subpastas principais:
