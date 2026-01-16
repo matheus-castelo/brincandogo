@@ -26,13 +26,11 @@ func main() {
 	server := &Server{DB: database}
 	r := gin.Default()
 
-	// Rotas do CRUD
 	r.POST("/people", server.CreateHandler)
 	r.GET("/people/:name", server.GetHandler)
 	r.PATCH("/people/:name", server.UpdateHandler)
 	r.DELETE("/people/:name", server.DeleteHandler)
 
-	// Rota do Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.Run(":8080")
