@@ -1,0 +1,143 @@
+basePath: /
+definitions:
+  main.ApiErr:
+    properties:
+      causes:
+        items:
+          $ref: '#/definitions/main.Causes'
+        type: array
+      code:
+        type: integer
+      message:
+        type: string
+      name:
+        type: string
+    type: object
+  main.Causes:
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+    type: object
+  main.People:
+    properties:
+      age:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para aprendizado de Go e gerenciamento de pessoas.
+  title: People Management API
+  version: "1.0"
+paths:
+  /people:
+    post:
+      consumes:
+      - application/json
+      description: Recebe um JSON, valida os dados e armazena no banco em memória
+      parameters:
+      - description: Dados da Pessoa
+        in: body
+        name: pessoa
+        required: true
+        schema:
+          $ref: '#/definitions/main.People'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.People'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ApiErr'
+      summary: Cria uma nova pessoa
+      tags:
+      - people
+  /people/{name}:
+    delete:
+      description: Deleta o registro do slice em memória baseado no nome
+      parameters:
+      - description: Nome da Pessoa
+        in: path
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ApiErr'
+      summary: Remove uma pessoa
+      tags:
+      - people
+    get:
+      description: Retorna os detalhes de uma pessoa através do nome fornecido na
+        URL
+      parameters:
+      - description: Nome da Pessoa
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.People'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ApiErr'
+      summary: Busca uma pessoa
+      tags:
+      - people
+    patch:
+      consumes:
+      - application/json
+      description: Altera o nome de um registro existente no banco em memória
+      parameters:
+      - description: Nome Atual
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: Novo Nome
+        in: body
+        name: body
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.People'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ApiErr'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ApiErr'
+      summary: Atualiza o nome de uma pessoa
+      tags:
+      - people
+swagger: "2.0"
